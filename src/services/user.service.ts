@@ -5,7 +5,7 @@ export async function findUserByEmail(prisma: PrismaClient, email: string) {
   const user = await prisma.user.findUnique({
     where: { email },
   });
-  return user !== null;
+  return user;
 }
 
 interface RegisterInput {

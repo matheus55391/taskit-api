@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcrypt";
+import { createUser, findUserByEmail } from "./user.service";
+import { hashPassword } from "../utils/hash";
 
 interface RegisterInput {
   name: string;
@@ -8,18 +9,14 @@ interface RegisterInput {
 }
 
 export async function registerUser(prisma: PrismaClient, data: RegisterInput) {
-  const userExists = await prisma.user.findUnique({
-    where: { email: data.email },
-  });
+  const userExists = await findUserByEmail(prisma, data.email);
   if (userExists) throw new Error("Email already registered");
 
-  const hashedPassword = await bcrypt.hash(data.password, 10);
+  const hashedPassword = await hashPassword(data.password);
 
-  return prisma.user.create({
-    data: {
-      name: data.name,
-      email: data.email,
-      password: hashedPassword,
-    },
+  return await createUser(prisma, {
+    name: data.name,
+    email: data.email,
+    password: hashedPassword,
   });
 }
