@@ -1,12 +1,15 @@
-import Fastify from "fastify";
+import { buildApp } from "./app";
+import dotenv from "dotenv";
 
-const server = Fastify();
+dotenv.config();
 
-server.get("/", async () => {
-  return { hello: "world" };
-});
+const port = Number(process.env.PORT) || 3333;
+const app = buildApp();
 
-server.listen({ port: 3000 }, (err, address) => {
-  if (err) throw err;
-  console.log(`Server listening at ${address}`);
+app.listen({ port }, (err, address) => {
+  if (err) {
+    app.log.error(err);
+    process.exit(1);
+  }
+  app.log.info(`🚀 Server running at ${address}`);
 });
