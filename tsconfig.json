@@ -6,7 +6,7 @@
     "lib": [
       "es2023"
     ],
-    "rootDir": "./src",
+    "rootDir": ".", // 🔄 De "src" para ".", inclui src e test
     "outDir": "./dist",
     "module": "nodenext",
     "target": "es2022",
@@ -14,5 +14,13 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "moduleResolution": "node16"
-  }
+  },
+  "include": [
+    "src",
+    "test"
+  ], // 🆕 Inclui a pasta de testes
+  "exclude": [
+    "dist",
+    "node_modules"
+  ] // 🔒 Garante que build e deps sejam ignorados
 }
