@@ -11,4 +11,10 @@ describe("hash utils", () => {
     const isNotMatch = await comparePassword("wrong", hash);
     expect(isNotMatch).toBe(false);
   });
+  it("should return false if hash is invalid", async () => {
+    const password = "mySecret123";
+    const invalidHash = "$2b$10$invalidhashstring";
+    const isMatch = await comparePassword(password, invalidHash);
+    expect(isMatch).toBe(false);
+  });
 });
