@@ -2,13 +2,18 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import { registerUser } from "../services/auth.service";
 import { findUserByEmail } from "../services/user.service";
 import { comparePassword } from "../utils/hash";
+import { registerSchema, loginSchema } from "../schemas/auth.schema";
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
-  const { name, email, password } = request.body as {
-    name: string;
-    email: string;
-    password: string;
-  };
+  // Validate request body with Zod
+  const parseResult = registerSchema.safeParse(request.body);
+  if (!parseResult.success) {
+    return reply.code(400).send({
+      error: "Invalid input",
+      details: parseResult.error.errors,
+    });
+  }
+  const { name, email, password } = parseResult.data;
 
   try {
     const user = await registerUser(request.server.prisma, {
@@ -26,10 +31,15 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 }
 
 export async function login(request: FastifyRequest, reply: FastifyReply) {
-  const { email, password } = request.body as {
-    email: string;
-    password: string;
-  };
+  // Validate request body with Zod
+  const parseResult = loginSchema.safeParse(request.body);
+  if (!parseResult.success) {
+    return reply.code(400).send({
+      error: "Invalid input",
+      details: parseResult.error.errors,
+    });
+  }
+  const { email, password } = parseResult.data;
 
   try {
     const user = await findUserByEmail(request.server.prisma, email);
