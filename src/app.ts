@@ -2,17 +2,18 @@ import fastifyCors from "@fastify/cors";
 import Fastify from "fastify";
 import jwt from "./plugins/jwt";
 import prisma from "./plugins/prisma";
-import swagger from "./plugins/swagger";
 import { routes } from "./routes";
 import {
+  jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
+  ZodTypeProvider,
 } from "fastify-type-provider-zod";
 import fastifySwagger from "@fastify/swagger";
 import fastifySwaggerUi from "@fastify/swagger-ui";
 
 export function buildApp() {
-  const app = Fastify({ logger: true });
+  const app = Fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
 
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
@@ -27,6 +28,7 @@ export function buildApp() {
         version: "0.0.1",
       },
     },
+    transform: jsonSchemaTransform,
   });
 
   app.register(fastifySwaggerUi, {
