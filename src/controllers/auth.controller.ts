@@ -46,6 +46,7 @@ export async function login(request: FastifyRequest, reply: FastifyReply) {
       return reply.code(401).send("Invalid email or password");
     }
 
+    console.log(password, user.password);
     const isPasswordValid = await comparePassword(password, user.password);
 
     if (!isPasswordValid) {
