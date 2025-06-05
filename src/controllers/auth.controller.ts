@@ -5,7 +5,6 @@ import { comparePassword } from "../utils/hash";
 import { registerSchema, loginSchema } from "../schemas/auth.schema";
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
-  // Validate request body with Zod
   const parseResult = registerSchema.safeParse(request.body);
   if (!parseResult.success) {
     return reply.code(400).send({
@@ -31,7 +30,6 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 }
 
 export async function login(request: FastifyRequest, reply: FastifyReply) {
-  // Validate request body with Zod
   const parseResult = loginSchema.safeParse(request.body);
   if (!parseResult.success) {
     return reply.code(400).send({
