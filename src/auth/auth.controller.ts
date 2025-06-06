@@ -2,17 +2,9 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import { ApiTags, ApiOperation, ApiBody, ApiResponse } from '@nestjs/swagger';
-
-class LoginDto {
-  email: string;
-  password: string;
-}
-
-class RegisterDto {
-  name: string;
-  email: string;
-  password: string;
-}
+import { LoginDto } from './dtos/login-dto';
+import { RegisterDto } from './dtos/register-dto';
+import { OAuthLoginDto } from './dtos/OAuth-login-dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -47,5 +39,22 @@ export class AuthController {
       password: registerDto.password,
     });
     return user;
+  }
+
+  @Post('oauth/login')
+  @ApiOperation({ summary: 'Login or register user via OAuth provider' })
+  @ApiBody({ type: OAuthLoginDto })
+  async oauthLogin(@Body() oauthLoginDto: OAuthLoginDto) {
+    const user = await this.authService.validateOAuthUser(
+      oauthLoginDto.provider,
+      oauthLoginDto.providerAccountId,
+      {
+        name: oauthLoginDto.name,
+        email: oauthLoginDto.email,
+        image: oauthLoginDto.image,
+      },
+    );
+
+    return this.authService.login(user);
   }
 }

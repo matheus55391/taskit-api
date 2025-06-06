@@ -54,22 +54,21 @@ export class UsersService {
   }
 
   // Criação com login Google (ou outro OAuth)
-  async createWith({
+  async createWithProvider({
     name,
     email,
     image,
+    provider,
     providerAccountId,
   }: {
     name?: string;
     email?: string;
     image?: string;
-    providerAccountId: string; // Google sub id
+    provider: AccountProvider;
+    providerAccountId: string;
   }) {
-    // Verifica se já existe conta google com providerAccountId
-    const existing = await this.accountExists(
-      AccountProvider.GOOGLE,
-      providerAccountId,
-    );
+    // Verifica se já existe conta com provider/providerAccountId
+    const existing = await this.accountExists(provider, providerAccountId);
 
     if (existing) {
       throw new ConflictException('User already exists');
@@ -82,7 +81,7 @@ export class UsersService {
         image,
         accounts: {
           create: {
-            provider: 'google',
+            provider,
             providerAccountId,
           },
         },
@@ -134,5 +133,27 @@ export class UsersService {
       },
     });
     return account !== null;
+  }
+
+  async findByAccount(provider: string, providerAccountId: string) {
+    const user = await this.prisma.user.findFirst({
+      where: {
+        accounts: {
+          some: {
+            provider,
+            providerAccountId,
+          },
+        },
+      },
+      include: {
+        accounts: true,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
   }
 }

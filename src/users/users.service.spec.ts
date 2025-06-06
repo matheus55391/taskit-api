@@ -69,15 +69,16 @@ describe('UsersService', () => {
     });
   });
 
-  describe('createWith', () => {
-    it('should throw ConflictException if google account exists', async () => {
+  describe('createWithProvider', () => {
+    it('should throw ConflictException if provider account exists', async () => {
       prismaMock.account.findFirst.mockResolvedValue({ id: 'account-google1' });
 
       await expect(
-        usersService.createWith({
+        usersService.createWithProvider({
           name: 'Google User',
           email: 'google@example.com',
           image: 'image_url',
+          provider: AccountProvider.GOOGLE,
           providerAccountId: 'google-sub-123',
         }),
       ).rejects.toThrow(ConflictException);
@@ -90,7 +91,7 @@ describe('UsersService', () => {
       });
     });
 
-    it('should create user with google account if not exists', async () => {
+    it('should create user with provider account if not exists', async () => {
       prismaMock.account.findFirst.mockResolvedValue(null);
       prismaMock.user.create.mockResolvedValue({
         id: 'user2',
@@ -100,10 +101,11 @@ describe('UsersService', () => {
         accounts: [],
       });
 
-      const result = await usersService.createWith({
+      const result = await usersService.createWithProvider({
         name: 'Google User',
         email: 'google@example.com',
         image: 'image_url',
+        provider: AccountProvider.GOOGLE,
         providerAccountId: 'google-sub-123',
       });
 
