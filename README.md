@@ -1,52 +1,98 @@
-# Taskit API
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
 
-Taskit API is a Fastify based API for the backend of my personal project, inspired by ClickUp, Notion, and Trello. The focus is on providing a minimalist task listing structure for small and faster projects.
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-## About
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-This project is a study and development of my skills, and it's not intended to be a production-ready API.
+## Description
 
-## Running the Project
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-To run the project, use the following commands:
+## Project setup
 
-- `pnpm run dev`: Starts the development server.
-- `pnpm run build`: Compiles the project.
-- `pnpm start`: Runs the compiled project in production mode.
+```bash
+$ npm install
+```
 
-## Requirements
+## Compile and run the project
 
-### Functional Requirements
+```bash
+# development
+$ npm run start
 
-- The API should have a RESTful interface.
-- The API should have an endpoint to create a new project.
-- The API should have an endpoint to list all projects.
-- The API should have an endpoint to get a project by id.
-- The API should have an endpoint to update a project.
-- The API should have an endpoint to delete a project.
-- The API should have an endpoint to create a new task.
-- The API should have an endpoint to list all tasks.
-- The API should have an endpoint to get a task by id.
-- The API should have an endpoint to update a task.
-- The API should have an endpoint to delete a task.
+# watch mode
+$ npm run start:dev
 
-### Non-Functional Requirements
+# production mode
+$ npm run start:prod
+```
 
-- The API should use a ORM (Object-Relational Mapping) to interact with the database.
-- The API should be written in Typescript.
-- The API should use Fastify as the web framework.
-- The API should use Prisma as the ORM.
-- The API should use a PostgreSQL database.
+## Run tests
 
-### User Stories
+```bash
+# unit tests
+$ npm run test
 
-- As a user, I want to be able to create a new project so I can organize my tasks.
-- As a user, I want to be able to list all projects so I can see all the projects I have.
-- As a user, I want to be able to get a project by id so I can see the details of a project.
-- As a user, I want to be able to update a project so I can change the details of a project.
-- As a user, I want to be able to delete a project so I can remove a project I no longer need.
-- As a user, I want to be able to create a new task so I can add a new task to a project.
-- As a user, I want to be able to list all tasks so I can see all the tasks of a project.
-- As a user, I want to be able to get a task by id so I can see the details of a task.
-- As a user, I want to be able to update a task so I can change the details of a task.
-- As a user, I want to be able to delete a task so I can remove a task I no longer need.
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
+```
+
+## Deployment
+
+When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+
+If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+
+```bash
+$ npm install -g @nestjs/mau
+$ mau deploy
+```
+
+With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+
+## Resources
+
+Check out a few resources that may come in handy when working with NestJS:
+
+- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
+- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
+- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
+- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
+- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
+- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
+- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
+- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+
+## Support
+
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+
+## Stay in touch
+
+- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
+
+## License
+
+Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).

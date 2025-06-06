@@ -1,26 +1,24 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Node 20",
-  "_version": "20.1.0",
   "compilerOptions": {
-    "lib": [
-      "es2023"
-    ],
-    "rootDir": ".", // 🔄 De "src" para ".", inclui src e test
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2023",
+    "sourceMap": true,
     "outDir": "./dist",
-    "module": "nodenext",
-    "target": "es2022",
-    "strict": true,
-    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["src/*"]
+    },
+    "incremental": true,
     "skipLibCheck": true,
-    "moduleResolution": "node16"
-  },
-  "include": [
-    "src",
-    "test"
-  ], // 🆕 Inclui a pasta de testes
-  "exclude": [
-    "dist",
-    "node_modules"
-  ] // 🔒 Garante que build e deps sejam ignorados
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false
+  }
 }

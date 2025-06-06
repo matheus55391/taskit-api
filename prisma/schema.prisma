@@ -1,53 +1,27 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
+// prisma/schema.prisma
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
   id        String    @id @default(cuid())
-  name      String
-  email     String    @unique
-  password  String
+  name      String?
+  email     String?   @unique
+  image     String?
+  accounts  Account[]
   createdAt DateTime  @default(now())
-  Project   Project[]
 }
 
-model Project {
-  id          String          @id @default(cuid())
-  title       String
-  description String
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
-  owner       User            @relation(fields: [id], references: [id])
-  columns     ProjectColumn[]
-  tasks       Task[]
-}
-
-model ProjectColumn {
-  id        String  @id @default(cuid())
-  name      String
-  project   Project @relation(fields: [projectId], references: [id])
-  projectId String
-  order     Int
-  tasks     Task[]
-}
-
-model Task {
-  id          String        @id @default(cuid())
-  title       String
-  description String
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  project     Project       @relation(fields: [projectId], references: [id])
-  projectId   String
-  column      ProjectColumn @relation(fields: [columnId], references: [id])
-  columnId    String
-  order       Int
+model Account {
+  id                 String   @id @default(cuid())
+  userId             String
+  user               User     @relation(fields: [userId], references: [id])
+  provider           String   // 'credentials' | 'google'
+  providerAccountId  String   // email ou sub do Google
+  passwordHash       String?  // se 'credentials', senão null
 }
