@@ -93,19 +93,24 @@ export class UsersService {
   }
 
   async findByEmail(email: string) {
-    const account = await this.prisma.account.findFirst({
+    const user = await this.prisma.user.findFirst({
       where: {
-        provider: 'credentials',
-        providerAccountId: email,
+        accounts: {
+          some: {
+            provider: 'credentials',
+            providerAccountId: email,
+          },
+        },
       },
-      include: { user: true },
+      include: {
+        accounts: true,
+      },
     });
-
-    if (!account || !account.user) {
+    if (!user) {
       throw new NotFoundException('User not found');
     }
 
-    return account.user;
+    return user;
   }
 
   async findById(id: string) {
